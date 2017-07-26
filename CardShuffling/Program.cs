@@ -24,7 +24,6 @@ namespace CardShuffling
 
         static void Main(string[] args)
         {
-            Console.WriteLine("testing");
             GameChoice();               
         }
 
