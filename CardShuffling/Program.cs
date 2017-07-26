@@ -44,7 +44,8 @@ namespace CardShuffling
             {
                 Console.WriteLine("What Game would you like to play?");
                 Console.WriteLine();
-                Console.WriteLine("1 - War, 2 - BlackJack, 3 - Rock, Paper, Scissors, \n4 - Tic Tac Toe, 5 - Snake, Any key to Exit");
+                Console.WriteLine("1 - War, 2 - BlackJack, 3 - Rock, Paper, Scissors, \n4 - Tic Tac Toe, 5 - Snake, " +
+                    "6 - Hangman, Any other key to Exit ");
                 bool UserChoice = int.TryParse(Console.ReadLine(), out int gameChoice);
 
                 switch (gameChoice)
@@ -77,6 +78,12 @@ namespace CardShuffling
                         Console.WriteLine("You picked Snake ... Starting a game of Snake");
                         Console.WriteLine();
                         Snake snake = new Snake();
+                        UserTryAgain = "n";
+                        break;
+                    case 6:
+                        Console.WriteLine("You picked Hangman ... Starting a game of Hangman");
+                        Console.WriteLine();
+                        Hangman hm = new Hangman();
                         UserTryAgain = "n";
                         break;
                     default:

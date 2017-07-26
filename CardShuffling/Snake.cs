@@ -29,12 +29,12 @@ namespace CardShuffling
 
             Console.CursorVisible = false;
             Console.Clear();
+            Console.SetWindowSize(71,41);
 
-            Console.SetCursorPosition(xPos[0], yPos[0]);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine((char)214);
+            PaintSnake(applesEaten, xPos, yPos, out xPos, out yPos);
 
             BuildWall();
+
             SetApplePosition(out appleX, out appleY);
             PaintApple(appleX, appleY);
 
@@ -67,10 +67,15 @@ namespace CardShuffling
                         Console.Write(" ");
                         yPos[0]++;
                         break;
+                    case ConsoleKey.Z:
+                        
+                        Restart();
+                        break;
+
 
                 }
 
-
+                PaintSnake(applesEaten, xPos, yPos, out xPos, out yPos);
 
                 isWallHit = DidSnakeHitWall(xPos[0], yPos[0]);
                 
@@ -78,8 +83,9 @@ namespace CardShuffling
                 if (isWallHit)
                 {
                     isGameOn = false;
-                    Console.SetCursorPosition(28, 20);
+                    Console.SetCursorPosition(35, 20);
                     Console.WriteLine("The snake hit the wall and died.");
+                    Restart();
                 }
 
                 isAppleEaten = DidSnakeHitApple(appleX, appleY, xPos[0], yPos[0]);
@@ -87,10 +93,10 @@ namespace CardShuffling
 
                 if (isAppleEaten)
                 {
-                    applesEaten++;
-                    PaintSnake(applesEaten, xPos, yPos, out xPos, out yPos);
+                   
                     SetApplePosition(out appleX, out appleY);
-                    PaintApple(appleX, appleY);                    
+                    PaintApple(appleX, appleY);
+                    applesEaten++;
                 }
                 else
                 {
@@ -121,18 +127,19 @@ namespace CardShuffling
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine((char)214);
 
+
             for (int i = 1; i < applesEaten + 1; i++)
             {
-                
                 Console.SetCursorPosition(xPosIn[i], yPosIn[i]);
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("o");
             }
 
-            Console.SetCursorPosition(xPosIn[applesEaten + 1], yPosIn[applesEaten + 1]);
-            Console.WriteLine(" ");
+                Console.SetCursorPosition(xPosIn[applesEaten + 1], yPosIn[applesEaten + 1]);
+                Console.WriteLine(" ");
+            
 
-            for (int i = applesEaten + 1; i > 1; i--)
+            for (int i = applesEaten + 1; i > 0; i--)
             {
                 xPosIn[i] = xPosIn[i - 1];
                 yPosIn[i] = yPosIn[i - 1];
@@ -201,6 +208,17 @@ namespace CardShuffling
             }
         }
 
+        private void Restart()
+        {
+            Console.SetCursorPosition(35, 20);
+            Console.WriteLine("Exiting the game");
+            System.Threading.Thread.Sleep(2000);
+            Console.ResetColor();
+            Console.Clear();
+            Console.SetWindowSize(150, 25);
+            Program pr = new Program();
+            
+        }
 
 
 
